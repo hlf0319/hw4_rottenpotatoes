@@ -1,0 +1,38 @@
+-# in app/views/movies/show.html.haml
+
+%h2 Similar Movies page for "#{@movie.title}"
+
+
+%ul#details
+  %li
+    Director:
+    = @movie.director
+  %li
+    Rating:
+    = @movie.rating
+  %li
+    Released on:
+    = @movie.release_date.strftime("%B %d, %Y")
+
+%h3 Description:
+
+%p#description= @movie.description
+
+%table#movies
+  %thead
+    %tr
+      %th Title
+      %th Director
+      %th Rating
+      %th Release Date
+      %th More Info
+  %tbody
+    - @list.each do |movie|
+      %tr
+        %td= movie.title
+        %td= movie.director
+        %td= movie.rating
+        %td= movie.release_date
+        %td= link_to "More about #{movie.title}", movie_path(movie)
+
+= link_to 'Back to movie list', movies_path
