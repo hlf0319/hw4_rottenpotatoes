@@ -38,7 +38,7 @@ describe MoviesController do
   
   describe 'create, edit, update, destroy test' do
     before :each do
-      @fake_movie = {:title => 'Aladdin', :rating => 'G', :director => 'fake', :release_date => '25-Nov-1992'}
+      @fake_movie = {'title' => 'Aladdin', 'rating' => 'G', 'director' => 'fake', 'release_date' => '25-Nov-1992'}
       @fake_result = mock('Movie', :id => '1', :title => 'Aladdin', :rating => 'G', :director => 'fake', :release_date => '25-Nov-1992')
     end
     it 'should create the movie page' do
@@ -63,17 +63,15 @@ describe MoviesController do
       it 'should update the movie page' do
         Movie.stub(:find).
           and_return(@fake_result)
-        # @fake_result.should_recevie(:update_attributes!).with(@fake_movie).
-          # and_return(true)
+        @fake_result.should_receive(:update_attributes!).with(@fake_movie)
         post :update, {:id => '1', :movie => @fake_movie}
-        response.should redirect_to('/movies/1')
+        response.should redirect_to("/movies/#{@fake_result.id}")
       end
 
       it 'should destroy the movie page' do
         Movie.stub(:find).
           and_return(@fake_result)
-        # @fake_result.should_recevie(:destroy).
-          # and_return(true)
+        @fake_result.should_receive(:destroy)
         post :destroy, {:id => '1'}
         response.should redirect_to('/movies')
       end
